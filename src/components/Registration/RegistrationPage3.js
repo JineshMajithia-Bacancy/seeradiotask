@@ -7,8 +7,11 @@ const RegistrationPage3 = (props) => {
   const [voiceFileDisabled, setVoiceFileDisabled] = useState(false);
   const [assetsDropDisabled, setAssetsDropDisabled] = useState(false);
 
+  const [acceptedScriptFiles, setAcceptedScriptFiles] = useState();
+
   const scriptFileDropHandler = (files) => {
     console.log(files);
+    setAcceptedScriptFiles(files);
     setScriptFileDisabled(true);
   };
 
@@ -27,27 +30,7 @@ const RegistrationPage3 = (props) => {
         <h5 style={{ color: "blue" }}>Test</h5>
         <CardBody>
           <h6 style={{ background: "lightgrey" }}>Script File</h6>
-          <Row xs="3">
-            <Col style={{ border: "3px black" }}>
-              <Dropzone
-                disabled={scriptFileDisabled}
-                onDrop={(acceptedFiles) => scriptFileDropHandler(acceptedFiles)}
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <div style={{ borderRadius: "10px" }} {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    {scriptFileDisabled ? (
-                      <p>File uploaded..</p>
-                    ) : (
-                      <p>Select Files</p>
-                    )}
-                  </div>
-                )}
-              </Dropzone>
-            </Col>
-            <Col>
-              <h5>OR</h5>
-            </Col>
+          <Row xs="1" style={{ alignContent: "center" }}>
             <Col>
               <Dropzone
                 disabled={scriptFileDisabled}
@@ -57,7 +40,7 @@ const RegistrationPage3 = (props) => {
                   <div style={{ borderRadius: "10px" }} {...getRootProps()}>
                     <input {...getInputProps()} />
                     {scriptFileDisabled ? (
-                      <p>File uploaded..</p>
+                      <p>{JSON.stringify(acceptedScriptFiles)}</p>
                     ) : (
                       <p>
                         Drag 'n' drop some files here, or click to select files

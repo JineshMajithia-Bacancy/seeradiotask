@@ -1,20 +1,30 @@
-.step{
-    -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-    clip-path: polygon(85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%, 0% 0%);
-    width: 15%;
-    padding: 7px 5px 7px 17px;
+.step {
+  align-items: center;
+  -webkit-clip-path: polygon(
+    75% 0%,
+    100% 50%,
+    75% 100%,
+    0% 100%,
+    25% 50%,
+    0% 0%
+  );
+  clip-path: polygon(85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%, 0% 0%);
+  width: 15%;
+  padding: 7px 5px 7px 17px;
 }
-.activeStep{
-    background-color:#111;
-    color:white;
+.activeStep {
+  align-items: center;
+  background-color: rgb(86, 169, 194);
+  color: black;
 }
-.completeStep{
+.completeStep {
+  align-items: center;
+  background-color: dodgerblue;
+  color: white;
+}
 
-    background-color:dodgerblue;
-    color:white;
-}
-
-.incompleteStep{
-    background-color: white;
-    color:black;
+.incompleteStep {
+  align-items: center;
+  background-color: rgb(3, 3, 3);
+  color: rgb(253, 246, 246);
 }

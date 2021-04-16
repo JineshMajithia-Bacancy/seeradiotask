@@ -54,6 +54,7 @@ const ChangePassword = (props) => {
         } else {
           setCurrentPasswordValid(false);
         }
+        break;
       default:
         let npassword = document.getElementById("newPassword").value;
         let npassword2 = document.getElementById("newPassword2").value;

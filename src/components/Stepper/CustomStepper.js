@@ -1,9 +1,10 @@
 import "./CustomStepper.css";
-
+import { Row, Col } from "reactstrap";
 const CustomStepper = (props) => {
+  //let step = props.activeStep;
   console.log(props.activeStep);
   let step = props.activeStep;
-
+  console.log(step);
   let style = {
     complete: {
       one: "step ml-auto completeStep",
@@ -30,8 +31,10 @@ const CustomStepper = (props) => {
             : style.complete.one
         }
       >
-        step 1<br />
-        Add Advertiser
+        <p style={{ textAlign: "center" }}>
+          Step 1<br />
+          Add Advertiser
+        </p>
       </div>
       <div
         className={
@@ -42,8 +45,10 @@ const CustomStepper = (props) => {
             : style.complete.two
         }
       >
-        step 2<br />
-        Add Order
+        <p style={{ textAlign: "center" }}>
+          Step 2<br />
+          Add Order
+        </p>
       </div>
       <div
         className={
@@ -54,8 +59,10 @@ const CustomStepper = (props) => {
             : style.active.three
         }
       >
-        step 3<br />
-        Add Assets
+        <p style={{ textAlign: "center" }}>
+          Step 3 <br />
+          Add Assets
+        </p>
       </div>
     </div>
   );

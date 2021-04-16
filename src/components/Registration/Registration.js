@@ -12,10 +12,13 @@ const Registration = () => {
   const [page2, setPage2] = useState(false);
   const [page3, setPage3] = useState(false);
 
+  const [step, setStep] = useState(1);
+
   let history = useHistory();
 
   const page1SubmitHandler = (event) => {
     event.preventDefault();
+    setStep(step + 1);
     setPage1(false);
     setPage2(true);
   };
@@ -25,6 +28,7 @@ const Registration = () => {
   };
 
   const page2SubmitHandler = () => {
+    setStep(step + 1);
     setPage2(false);
     setPage3(true);
   };
@@ -34,6 +38,7 @@ const Registration = () => {
   };
 
   const page2PreviousHandler = (event) => {
+    setStep(step - 1);
     event.preventDefault();
     setPage2(false);
     setPage1(true);
@@ -48,6 +53,7 @@ const Registration = () => {
   };
 
   const page3PreviousHandler = () => {
+    setStep(step - 1);
     setPage3(false);
     setPage2(true);
   };
@@ -56,7 +62,7 @@ const Registration = () => {
     <div>
       <Topbar />
       <NavigationBar />
-      <Stepper activeStep="1" />
+      <Stepper activeStep={step} />
       <Card style={{ margin: "0 5%  5%  5%", borderRadius: "10px" }}>
         <CardBody>
           {page1 ? (

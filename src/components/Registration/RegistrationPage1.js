@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Label, Input, Button } from "reactstrap";
 import { checkValidity } from "../CheckValidity/checkValidity";
 import {
@@ -8,6 +8,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import axios from "axios";
 const Registration1 = (props) => {
   const [dropdownOpenCategory, setDropdownOpenCategory] = useState(false);
   const [dropdownOpenCountry, setDropdownOpenCountry] = useState(false);
@@ -112,6 +113,63 @@ const Registration1 = (props) => {
     } else {
       return true;
     }
+  };
+
+  const page1SubmitHandler = (event) => {
+    let loginresponse = JSON.parse(localStorage.getItem("loginResponse"));
+    axios
+      .post(
+        `http://localhost:3000/api/company/client`,
+        {
+          companyName: document.getElementById("companyName").value,
+          industryID: "9754b9d4-1832-44e0-b186-08a431033c23",
+          companyWebsite: document.getElementById("companyWebsite").value,
+          companyType: "Client",
+          contactAddress: {
+            business: {
+              address: document.getElementById("address").value,
+              address2: document.getElementById("addressLine2").value,
+              city: document.getElementById("city").value,
+              postal: document.getElementById("postal").value,
+              country: cCategoryLabel,
+              state: sCategoryLabel,
+              provinceID: 2,
+            },
+            billing: {
+              address: "TEMP",
+              address2: "TEMP",
+              city: "TEMP",
+              state: "TEMP",
+              postal: "TEMP",
+              country: "TEMP",
+              provinceID: 0,
+            },
+            useSame: false,
+          },
+          addressType: "Billing",
+          firstName: document.getElementById("firstName").value,
+          lastName: document.getElementById("lastName").value,
+          email: document.getElementById("email").value,
+          phone: document.getElementById("phone").value,
+          secondaryContact: {
+            firstName: document.getElementById("secFirstName").value || "NA",
+            lastName: document.getElementById("secLastName").value || "NA",
+            email: document.getElementById("secEmail").value || "NA",
+            phone: document.getElementById("secPhone").value || "NA",
+          },
+          roleCode: loginresponse.data.data.personData.roleCode,
+          createdByPerson: loginresponse.data.data.personData.id,
+        },
+        { headers: { "x-token": loginresponse.data.data.token } }
+      )
+      .then((res) => {
+        alert(res);
+        props.page1SubmitHandler(event);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        alert(error.response.data.errorMessage);
+      });
   };
 
   const iCategorySelectHandler = (value) => {
@@ -243,6 +301,11 @@ const Registration1 = (props) => {
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
+              {!iCategorySelect ? (
+                <span style={{ color: "red", fontSize: "12px" }}>
+                  Select Industry Category
+                </span>
+              ) : null}
             </Col>
           </Row>
           <br />
@@ -483,18 +546,21 @@ const Registration1 = (props) => {
                   {cCategoryLabel}
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem
-                    onClick={() => cCategorySelectHandler("Country1")}
-                  >
-                    Country1
+                  <DropdownItem onClick={() => cCategorySelectHandler("US")}>
+                    US
                   </DropdownItem>
                   <DropdownItem
-                    onClick={() => cCategorySelectHandler("Country2")}
+                    onClick={() => cCategorySelectHandler("Canada")}
                   >
-                    Country2
+                    Canada
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
+              {!cCategorySelect ? (
+                <span style={{ color: "red", fontSize: "12px" }}>
+                  Select Country
+                </span>
+              ) : null}
             </Col>
             <Col>
               <Label>State/Province</Label>
@@ -530,6 +596,11 @@ const Registration1 = (props) => {
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
+              {!sCategorySelect ? (
+                <span style={{ color: "red", fontSize: "12px" }}>
+                  Select State
+                </span>
+              ) : null}
             </Col>
             <Col>
               <Input
@@ -681,7 +752,8 @@ const Registration1 = (props) => {
             disabled={nextDisabled()}
             color="primary"
             style={{ marginLeft: "auto" }}
-            onClick={(event) => props.page1SubmitHandler(event)}
+            // onClick={(event) => props.page1SubmitHandler(event)}
+            onClick={(event) => page1SubmitHandler(event)}
           >
             Create Advertiser
           </Button>
